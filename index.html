@@ -3,22 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobi простой сайт</title>
-    <!-- Подключаем Telegram Web Apps API -->
+    <title>Telegram Web App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <h1>Добро пожаловать на мой сайт!</h1>
-    <p>Это пример простого сайта с гиперссылками.</p>
-
-    <h2>Мои ссылки:</h2>
-    <ul>
-        <li><a href="https://www.google.com">Google</a></li>
-        <li><a href="https://uniswap.io">Uniswap</a></li>
-        <li><a href="https://element.market">Element</a></li>
-        <li><a href="https://quickswap.exchange">Quickswap</a></li>
-        <li><a href="https://geckoterminal.com">Geckoterminal</a></li>
-    </ul>
+    <div id="content">
+        <h1>Главная страница</h1>
+        <button onclick="loadPage('page1')">Страница 1</button>
+        <button onclick="loadPage('page2')">Страница 2</button>
+    </div>
 
     <script>
         const tg = window.Telegram.WebApp;
@@ -28,11 +21,33 @@
 
         // Обработчик для кнопки "Назад"
         tg.BackButton.onClick(() => {
-       window.history.back();
-   });
+            window.history.back(); // Вернуться на предыдущую страницу
+        });
 
-        // Опционально: скрыть кнопку "Назад", если она не нужна
-        // tg.BackButton.hide();
+        // Функция для загрузки контента
+        function loadPage(page) {
+            let content = "";
+            if (page === "page1") {
+                content = "<h1>Страница 1</h1><p>Это контент страницы 1.</p>";
+            } else if (page === "page2") {
+                content = "<h1>Страница 2</h1><p>Это контент страницы 2.</p>";
+            }
+
+            // Обновляем контент
+            document.getElementById("content").innerHTML = content;
+
+            // Добавляем запись в историю
+            window.history.pushState({ page }, "", `#${page}`);
+        }
+
+        // Обработчик изменения истории
+        window.onpopstate = function(event) {
+            if (event.state && event.state.page) {
+                loadPage(event.state.page);
+            } else {
+                document.getElementById("content").innerHTML = "<h1>Главная страница</h1><button onclick='loadPage(\"page1\")'>Страница 1</button><button onclick='loadPage(\"page2\")'>Страница 2</button>";
+            }
+        };
     </script>
 </body>
 </html>
