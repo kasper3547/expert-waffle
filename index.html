@@ -3,164 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор</title>
+    <title>Главная страница</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .calculator {
-            background-color: #2c2c2c;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            width: 300px;
-        }
-
-        .display {
-            background-color: #1e1e1e;
-            color: #ff4444;
-            font-size: 2em;
-            text-align: right;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #444;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .button {
-            background-color: #444;
-            color: #fff;
-            font-size: 1.5em;
-            padding: 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .button:hover {
-            background-color: #555;
-        }
-
-        .button.operator {
-            background-color: #ff4444;
-        }
-
-        .button.operator:hover {
-            background-color: #ff6666;
-        }
-
-        .button.zero {
-            grid-column: span 2;
-        }
-    </style>
 </head>
 <body>
-    <div class="calculator">
-        <div class="display" id="display">0</div>
-        <div class="buttons">
-            <button class="button" onclick="clearDisplay()">C</button>
-            <button class="button operator" onclick="appendOperator('/')">/</button>
-            <button class="button operator" onclick="appendOperator('*')">*</button>
-            <button class="button operator" onclick="deleteLast()">⌫</button>
-            <button class="button" onclick="appendNumber('7')">7</button>
-            <button class="button" onclick="appendNumber('8')">8</button>
-            <button class="button" onclick="appendNumber('9')">9</button>
-            <button class="button operator" onclick="appendOperator('-')">-</button>
-            <button class="button" onclick="appendNumber('4')">4</button>
-            <button class="button" onclick="appendNumber('5')">5</button>
-            <button class="button" onclick="appendNumber('6')">6</button>
-            <button class="button operator" onclick="appendOperator('+')">+</button>
-            <button class="button" onclick="appendNumber('1')">1</button>
-            <button class="button" onclick="appendNumber('2')">2</button>
-            <button class="button" onclick="appendNumber('3')">3</button>
-            <button class="button operator" onclick="calculate()">=</button>
-            <button class="button zero" onclick="appendNumber('0')">0</button>
-            <button class="button" onclick="appendNumber('.')">.</button>
-        </div>
-    </div>
+    <h1>Главная страница</h1>
+    <p>Добро пожаловать на главную страницу!</p>
+    <a href="page1.html">Перейти на страницу 1</a>
+    <a href="page2.html">Перейти на страницу 2</a>
 
     <script>
-        const display = document.getElementById('display');
-        let currentInput = '';
-        let operator = null;
-        let previousInput = '';
+        const tg = window.Telegram.WebApp;
 
-        function appendNumber(number) {
-            if (currentInput.includes('.') && number === '.') return;
-            currentInput += number;
-            updateDisplay();
+        // Показываем кнопку "Назад" только если есть история
+        if (window.history.length > 1) {
+            tg.BackButton.show();
         }
 
-        function appendOperator(op) {
-            if (currentInput === '') return;
-            if (previousInput !== '') {
-                calculate();
-            }
-            operator = op;
-            previousInput = currentInput;
-            currentInput = '';
-        }
-
-        function calculate() {
-            if (operator === null || currentInput === '') return;
-            let result;
-            const prev = parseFloat(previousInput);
-            const current = parseFloat(currentInput);
-
-            switch (operator) {
-                case '+':
-                    result = prev + current;
-                    break;
-                case '-':
-                    result = prev - current;
-                    break;
-                case '*':
-                    result = prev * current;
-                    break;
-                case '/':
-                    result = prev / current;
-                    break;
-                default:
-                    return;
-            }
-
-            currentInput = result.toString();
-            operator = null;
-            previousInput = '';
-            updateDisplay();
-        }
-
-        function clearDisplay() {
-            currentInput = '';
-            operator = null;
-            previousInput = '';
-            updateDisplay();
-        }
-
-        function deleteLast() {
-            currentInput = currentInput.slice(0, -1);
-            updateDisplay();
-        }
-
-        function updateDisplay() {
-            display.textContent = currentInput || '0';
-        }
+        // Обработчик для кнопки "Назад"
+        tg.BackButton.onClick(() => {
+            window.history.back();
+        });
     </script>
 </body>
-    </html>
+</html>
