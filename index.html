@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobi простой сайт</title>
+    <!-- Добавьте эту строку для подключения Telegram Web Apps API -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <h1>Добро пожаловать на мой сайт!</h1>
@@ -17,5 +19,19 @@
         <li><a href="https://quickswap.exchange">Quickswap</a></li>
         <li><a href="https://geckoterminal.com">Geckoterminal</a></li>
     </ul>
+
+    <!-- Пример использования Telegram Web Apps API -->
+    <script>
+        const tg = window.Telegram.WebApp;
+
+        // Показать кнопку "Закрыть"
+        tg.MainButton.show().setText("Закрыть").onClick(() => tg.close());
+
+        // Получить данные пользователя
+        const user = tg.initDataUnsafe.user;
+        if (user) {
+            document.body.innerHTML += `<p>Привет, ${user.first_name}!</p>`;
+        }
+    </script>
 </body>
 </html>
