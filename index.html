@@ -5,25 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body>
-    <h1>Главная страница</h1>
-    <p>Добро пожаловать на главную страницу!</p>
-    <a href="page1.html">Перейти на страницу 1</a>
-    <a href="page2.html">Перейти на страницу 2</a>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-
-        // Показываем кнопку "Назад" только если есть история
-        if (window.history.length > 1) {
-            tg.BackButton.show();
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #18222d; /* Фон в стиле Telegram */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        // Обработчик для кнопки "Назад"
-        tg.BackButton.onClick(() => {
-            window.history.back();
-        });
-    </script>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 150px); /* Два столбца */
+            grid-template-rows: repeat(2, 150px); /* Две строки */
+            gap: 20px; /* Расстояние между кнопками */
+        }
+
+        .button {
+            background-color: #2a3a4b; /* Цвет кнопок в стиле Telegram */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #3a4a5b; /* Цвет кнопок при наведении */
+        }
+
+        .button.calculator {
+            background-color: #34b7f1; /* Голубой цвет для калькулятора */
+        }
+
+        .button.calculator:hover {
+            background-color: #2aa7e1; /* Темнее при наведении */
+        }
+
+        .button.empty {
+            background-color: #4a5a6b; /* Серый цвет для пустых кнопок */
+        }
+
+        .button.empty:hover {
+            background-color: #5a6a7b; /* Темнее при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Кнопка для калькулятора -->
+        <a href="calculator.html" class="button calculator">Калькулятор</a>
+
+        <!-- Пустые кнопки -->
+        <a href="page2.html" class="button empty">Страница 2</a>
+        <a href="page3.html" class="button empty">Страница 3</a>
+        <a href="page4.html" class="button empty">Страница 4</a>
+    </div>
 </body>
 </html>
