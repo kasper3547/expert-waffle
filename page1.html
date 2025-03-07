@@ -96,6 +96,16 @@
     </div>
 
     <script>
+        const tg = window.Telegram.WebApp;
+
+        // Показываем кнопку "Назад"
+        tg.BackButton.show();
+
+        // Обработчик для кнопки "Назад"
+        tg.BackButton.onClick(() => {
+            tg.close(); // Закрыть мини-приложение
+        });
+
         const display = document.getElementById('display');
         let currentInput = '';
         let operator = null;
@@ -161,19 +171,6 @@
         function updateDisplay() {
             display.textContent = currentInput || '0';
         }
-        
-        const tg = window.Telegram.WebApp;
-
-        // Показываем кнопку "Назад" только если есть история
-        if (window.history.length > 1) {
-            tg.BackButton.show();
-        }
-
-        // Обработчик для кнопки "Назад"
-        tg.BackButton.onClick(() => {
-            window.history.back();
-        });
-    
     </script>
 </body>
-              </html>
+</html>
