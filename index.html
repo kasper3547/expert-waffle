@@ -3,69 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Часы с кнопками</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #18222d; /* Фон в стиле Telegram */
-            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
         }
-
-        .container {
-            display: grid;
-            grid-template-columns: repeat(2, 150px); /* Два столбца */
-            grid-template-rows: repeat(2, 150px); /* Две строки */
-            gap: 20px; /* Расстояние между кнопками */
+        .clock {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 10px solid #333;
+            border-radius: 50%;
+            background-color: #fff;
         }
-
         .button {
-            background-color: #2a3a4b; /* Цвет кнопок в стиле Telegram */
-            color: #fff;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2em;
-            border-radius: 15px;
-            text-decoration: none;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            font-size: 18px;
+            transform-origin: center;
         }
-
         .button:hover {
-            background-color: #3a4a5b; /* Цвет кнопок при наведении */
+            background-color: #45a049;
         }
-
-        .button.calculator {
-            background-color: #34b7f1; /* Голубой цвет для калькулятора */
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
-
-        .button.calculator:hover {
-            background-color: #2aa7e1; /* Темнее при наведении */
+        .back-button:hover {
+            background-color: #d32f2f;
         }
-
-        .button.empty {
-            background-color: #4a5a6b; /* Серый цвет для пустых кнопок */
+        .page {
+            display: none;
+            padding: 20px;
+            text-align: center;
         }
-
-        .button.empty:hover {
-            background-color: #5a6a7b; /* Темнее при наведении */
+        .page.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Кнопка для калькулятора -->
-        <a href="calculator.html" class="button calculator">Калькулятор</a>
-
-        <!-- Пустые кнопки -->
-        <a href="page2.html" class="button empty">Страница 2</a>
-        <a href="page3.html" class="button empty">Страница 3</a>
-        <a href="page4.html" class="button empty">Страница 4</a>
+    <div class="clock">
+        <!-- Кнопки в виде часов -->
+        <button class="button" style="top: 10px; left: 125px;" data-page="1">1</button>
+        <button class="button" style="top: 30px; left: 190px;" data-page="2">2</button>
+        <button class="button" style="top: 80px; left: 240px;" data-page="3">3</button>
+        <button class="button" style="top: 140px; left: 260px;" data-page="4">4</button>
+        <button class="button" style="top: 200px; left: 240px;" data-page="5">5</button>
+        <button class="button" style="top: 250px; left: 190px;" data-page="6">6</button>
+        <button class="button" style="top: 270px; left: 125px;" data-page="7">7</button>
+        <button class="button" style="top: 250px; left: 60px;" data-page="8">8</button>
+        <button class="button" style="top: 200px; left: 10px;" data-page="9">9</button>
+        <button class="button" style="top: 140px; left: -10px;" data-page="10">10</button>
+        <button class="button" style="top: 80px; left: 10px;" data-page="11">11</button>
+        <button class="button" style="top: 30px; left: 60px;" data-page="12">12</button>
     </div>
+
+    <!-- Страницы с контентом -->
+    <div id="page1" class="page">
+        <h2>Страница 1</h2>
+        <p>Полезный контент для страницы 1.</p>
+    </div>
+    <div id="page2" class="page">
+        <h2>Страница 2</h2>
+        <p>Полезный контент для страницы 2.</p>
+    </div>
+    <div id="page3" class="page">
+        <h2>Страница 3</h2>
+        <p>Полезный контент для страницы 3.</p>
+    </div>
+    <div id="page4" class="page">
+        <h2>Страница 4</h2>
+        <p>Полезный контент для страницы 4.</p>
+    </div>
+    <div id="page5" class="page">
+        <h2>Страница 5</h2>
+        <p>Полезный контент для страницы 5.</p>
+    </div>
+    <div id="page6" class="page">
+        <h2>Страница 6</h2>
+        <p>Полезный контент для страницы 6.</p>
+    </div>
+    <div id="page7" class="page">
+        <h2>Страница 7</h2>
+        <p>Полезный контент для страницы 7.</p>
+    </div>
+    <div id="page8" class="page">
+        <h2>Страница 8</h2>
+        <p>Полезный контент для страницы 8.</p>
+    </div>
+    <div id="page9" class="page">
+        <h2>Страница 9</h2>
+        <p>Полезный контент для страницы 9.</p>
+    </div>
+    <div id="page10" class="page">
+        <h2>Страница 10</h2>
+        <p>Полезный контент для страницы 10.</p>
+    </div>
+    <div id="page11" class="page">
+        <h2>Страница 11</h2>
+        <p>Полезный контент для страницы 11.</p>
+    </div>
+    <div id="page12" class="page">
+        <h2>Страница 12</h2>
+        <p>Полезный контент для страницы 12.</p>
+    </div>
+
+    <!-- Кнопка "Назад" -->
+    <button class="back-button" id="backButton">Назад</button>
+
+    <script>
+        // Обработчик для кнопок
+        const buttons = document.querySelectorAll('.button');
+        const pages = document.querySelectorAll('.page');
+        const backButton = document.getElementById('backButton');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const pageId = button.getAttribute('data-page');
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById(`page${pageId}`).classList.add('active');
+                backButton.style.display = 'block';
+            });
+        });
+
+        // Обработчик для кнопки "Назад"
+        backButton.addEventListener('click', () => {
+            pages.forEach(page => page.classList.remove('active'));
+            backButton.style.display = 'none';
+        });
+    </script>
 </body>
-</html>
+    </html>
