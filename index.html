@@ -134,11 +134,11 @@
             background-color: #ff4444;
             color: #fff;
             border: none;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
-            width: 100%;
+            font-size: 0.8em;
         }
 
         .clear-history:hover {
@@ -186,7 +186,7 @@
         let currentInput = '';
         let operator = null;
         let previousInput = '';
-        let history = [];
+        let history = JSON.parse(localStorage.getItem('calculatorHistory')) || [];
 
         function appendNumber(number) {
             if (currentInput.includes('.') && number === '.') return;
@@ -232,6 +232,7 @@
 
             const operation = `${previousInput} ${operator} ${currentInput} = ${result}`;
             history.push(operation);
+            localStorage.setItem('calculatorHistory', JSON.stringify(history));
             updateHistory();
 
             currentInput = result.toString();
@@ -268,22 +269,36 @@
 
         function updateHistory() {
             historyList.innerHTML = history.map((item, index) => `
-                <div class="history-item" onclick="copyToDisplay(${index})">${item}</div>
+                <div class="history-item" onclick="copyCalculation(${index})">${item}</div>
             `).join('');
         }
 
-        function copyToDisplay(index) {
+        function copyCalculation(index) {
             const operation = history[index];
-            const result = operation.split('=')[1].trim();
-            currentInput = result;
+            const calculation = operation.split('=')[0].trim();
+            currentInput = calculation;
             updateDisplay();
             closeHistory();
         }
 
         function clearHistory() {
             history = [];
+            localStorage.removeItem('calculatorHistory');
             updateHistory();
         }
+
+        // Вставка из буфера обмена
+        display.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (!isNaN(text) {
+                    currentInput = text;
+                    updateDisplay();
+                }
+            } catch (error) {
+                console.error('Ошибка при вставке из буфера обмена:', error);
+            }
+        });
 
         // Закрытие панели истории при клике вне её области
         window.addEventListener('click', (event) => {
@@ -291,6 +306,9 @@
                 closeHistory();
             }
         });
+
+        // Инициализация истории при загрузке страницы
+        updateHistory();
     </script>
 </body>
-    </html>
+                </html>
